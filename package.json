@@ -1,15 +1,15 @@
 {
-  "name": "mxydl2009",
+  "name": "mxy-cli",
   "version": "1.0.0",
-  "description": "a command line tool for create javascript library template",
-  "main": "index.js",
+  "description": "a command line tool for create javascript project using specific template",
   "bin": {
     "mxydl2009": "./bin/cli.js"
   },
   "scripts": {},
   "keywords": [
     "command line tool",
-    "javascript library"
+    "javascript project",
+    "template"
   ],
   "author": "mxydl2009@163.com",
   "license": "MIT",
