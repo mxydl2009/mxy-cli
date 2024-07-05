@@ -11,37 +11,58 @@ const colors = require("colors");
 const currentNodeVersion = process.version;
 const { program } = require("commander");
 const npminstall = require("npminstall");
+const inquirer = require("inquirer");
+const { spawn } = require("child_process");
 
 const pkg = require("../package.json");
 
-// 命令注册
+npmLog.addLevel("success", 2000, { fg: "green", bold: true }); // 添加自定义日志等级
+
+// 注册命令
 program
-  .version(pkg.version)
-  .option(
-    "create jslib --name <projectName>",
-    "create javascript library using template"
-  )
-  .option(
-    "create jslib --template <templateName>",
-    "create javascript library using named template"
-  )
-  .action(commanderExec)
-  .parse(process.argv);
+  .name("mxy")
+  .description("a command line tool for create project")
+  .version(pkg.version);
+
+program
+  .command("create")
+  .description("创建JavaScript库")
+  .option("--name <projectName>", "工程名")
+  .option("--template <templateName>", "要使用的模板名")
+  .action(commanderExec);
+
+// 解析命令行参数，一定要在所有命令注册后，再调用
+program.parse(process.argv);
 
 execute();
 
 async function commanderExec(options) {
-  // if (!options.dir) {
-  //   npmLog.error("you must input the directory, please refer the help");
-  //   return;
-  // }
+  const questions = [];
   if (!options.name) {
     // 如果没有提供name，则向用户提问输入名称
     // options.name = "lib";
+    questions.push({
+      type: "input",
+      name: "name",
+      message: "please input the project name, the default is lib",
+    });
+  }
+  if (!options.template) {
+    questions.push({
+      type: "list",
+      name: "template",
+      message: "please input the template name, the default is lib-template",
+      choices: ["@mxydl2009/lib-template"],
+    });
+  }
+  if (questions.length !== 0) {
+    const answers = await inquirer.prompt(questions);
+    answers.name && (options.name = answers.name);
+    answers.template && (options.template = answers.template);
   }
   const cwd = process.cwd();
   const projectName = options.name || "lib";
-  const templateName = options.templateName || "@mxydl2009/jslib-template";
+  const templateName = options.templateName || "@mxydl2009/lib-template";
   const templateInstallTargetDir = path.resolve(cwd, ".templates");
   try {
     await Promise.resolve();
@@ -71,8 +92,41 @@ async function commanderExec(options) {
       );
     }
     fse.copySync(templateDir, projectDir);
+    // 修改模板的名称与版本号
+    const createdPkg = require(path.resolve(projectDir, "./package.json"));
+    createdPkg.name = projectName;
+    createdPkg.version = "1.0.0";
+    const pkgFilePath = path.resolve(projectDir, "./package.json");
+    // 删除npminstall安装package时在pkg.json中留下的标记字段
+    Object.keys(createdPkg).forEach((key) => {
+      if (key.startsWith("_") || key.startsWith("__")) {
+        delete createdPkg[key];
+      }
+    });
+    // 删除原来的pkg.json
+    fse.removeSync(pkgFilePath);
+    // 创建新的pkg.json
+    fse.ensureFileSync(pkgFilePath);
+    fse.writeFileSync(
+      pkgFilePath,
+      JSON.stringify(createdPkg, undefined, 2),
+      "utf-8"
+    );
     // 删除下载的模板文件
     fse.removeSync(templateInstallTargetDir);
+    npmLog.info("installing dependencies, please waiting...");
+    // 进入工程中，安装依赖
+    const installDependencies = spawn("npm", ["install"], {
+      cwd: path.resolve(cwd, projectDir),
+      stdio: "inherit",
+    });
+    // 使用stdio: inherit后，子进程调用error来监听error事件
+    installDependencies.on("error", (e) => {
+      process.exit(1);
+    });
+    installDependencies.on("exit", (e) => {
+      npmLog.success("dependencies installed successfully!");
+    });
   } catch (err) {
     npmLog.error(err.message);
   }
@@ -81,13 +135,13 @@ async function commanderExec(options) {
 function execute() {
   if (importLocal(__filename)) {
     // importLocal(__filename)表示加载本地的包，false则包不存在本地，true则包在本地，并已经执行
-    npmLog.info("mxydl2009", `正在使用本地版本${pkg.version}`);
+    npmLog.info(`${pkg.name}`, `正在使用本地版本${pkg.version}`);
   } else {
-    npmLog.info("mxydl2009", `正在使用全局版本${pkg.version}`);
+    npmLog.info(`${pkg.name}`, `正在使用全局版本${pkg.version}`);
     try {
       checkNodeVersion();
-      // checkRoot();
-      // checkPkgVersion();
+      checkRoot();
+      checkPkgVersion();
     } catch (err) {
       npmLog.error(err.message);
     }

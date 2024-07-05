@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "a command line tool for create javascript project using specific template",
   "bin": {
-    "mxydl2009": "./bin/cli.js"
+    "mxy": "./bin/cli.js"
   },
   "scripts": {},
   "keywords": [
@@ -23,6 +23,7 @@
     "cross-env": "^7.0.3",
     "fs-extra": "^11.2.0",
     "import-local": "^3.1.0",
+    "inquirer": "^8.0.0",
     "npminstall": "^7.12.0",
     "npmlog": "^7.0.1",
     "root-check": "^1.0.0",
