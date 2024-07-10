@@ -82,20 +82,10 @@ async function runPrompts() {
       default: true,
     },
     {
-      type: "checkbox",
+      type: "confirm",
       name: "commitlint",
       message: "use commitlint:",
-      choices: ["commitlint", "standard-version"],
-      default: ["commitlint"],
-      filter: (values) => {
-        return values.reduce(
-          (res, cur) => ({
-            ...res,
-            [cur]: true,
-          }),
-          {}
-        );
-      },
+      default: true,
     },
     {
       type: "confirm",
@@ -103,20 +93,20 @@ async function runPrompts() {
       message: "use husky?",
       default: true,
     },
-    {
-      type: "list",
-      name: "ci",
-      message: "use ci:",
-      choices: ["github", "circleci", "travis", "none"],
-      filter: (value) => {
-        return {
-          github: "github",
-          circleci: "circleci",
-          travis: "travis",
-          none: null,
-        }[value];
-      },
-    },
+    // {
+    //   type: "list",
+    //   name: "ci",
+    //   message: "use ci:",
+    //   choices: ["github", "circleci", "travis", "none"],
+    //   filter: (value) => {
+    //     return {
+    //       github: "github",
+    //       circleci: "circleci",
+    //       travis: "travis",
+    //       none: null,
+    //     }[value];
+    //   },
+    // },
   ];
   const answers = await inquirer.prompt(questions);
   return answers;

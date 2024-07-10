@@ -43,7 +43,6 @@ function init(isEslint, projectDir) {
       prettierPluginConfig +
       eslintConfig.slice(position);
 
-    console.log("eslint config", eslintConfig);
     fse.writeFileSync(
       path.resolve(projectDir, "./eslint.config.mjs"),
       eslintConfig
@@ -59,7 +58,7 @@ function init(isEslint, projectDir) {
   return new Promise((resolve) => {
     const prettierPlugin = spawn(
       "npm",
-      ["install", "eslint-plugin-prettier eslint-config-prettier", "-D"],
+      ["install", "eslint-plugin-prettier", "eslint-config-prettier", "-D"],
       {
         cwd: projectDir,
         stdio: "inherit",

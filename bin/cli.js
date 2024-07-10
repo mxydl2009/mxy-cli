@@ -1,6 +1,4 @@
 #! /usr/bin/env node
-// const path = require("path");
-// const fse = require("fs-extra");
 const npmLog = require("npmlog");
 const { program } = require("commander");
 const fse = require("fs-extra");
@@ -11,6 +9,10 @@ const checkBase = require("../checkBase");
 const init = require("../init");
 const eslintInit = require("../eslintInit");
 const prettierInit = require("../prettierInit");
+const commitLintInit = require("../commitLintInit");
+const huskyInit = require("../huskyInit");
+const gitRepoInit = require("../gitRepoInit");
+const installDeps = require("../installDeps");
 
 const pkg = require("../package.json");
 
@@ -25,8 +27,6 @@ program
 
 program.command("create").description("创建JavaScript库").action(create);
 
-// checkBase();
-
 // 解析命令行参数，一定要在所有命令注册后，再调用
 program.parse(process.argv);
 
@@ -35,7 +35,7 @@ async function create() {
   await checkBase();
   // 获取用户配置
   userConfig = await runPrompts();
-  const { pkgFilePath, createdPkg, projectDir } = await init(userConfig);
+  const { pkgFilePath, projectDir } = await init(userConfig);
   // const projectDir = path.resolve(process.cwd(), "./test/");
   console.log("userConfig", userConfig);
   // 生成LICENSE文件
@@ -47,14 +47,30 @@ async function create() {
   fse.ensureFileSync(licenseFilePath);
   fse.writeFileSync(licenseFilePath, license, "utf-8");
 
-  // eslint初始化
-  await eslintInit(projectDir);
-  // prettier初始化
-  await prettierInit(userConfig.eslint, projectDir, pkgFilePath);
-  // commitlint初始化
-  // commitLint.init();
-  // husky初始化
-  // husky.init();
-  // git初始化
-  // gitRepo.init();
+  if (userConfig.eslint) {
+    // eslint初始化
+    await eslintInit(projectDir);
+  }
+
+  if (userConfig.prettier) {
+    // prettier初始化
+    await prettierInit(userConfig.eslint, projectDir, pkgFilePath);
+  }
+
+  if (userConfig.commitlint) {
+    // commitlint初始化
+    await commitLintInit(projectDir);
+  }
+
+  if (userConfig.husky) {
+    // husky初始化
+    await huskyInit(projectDir, pkgFilePath);
+  }
+
+  if (userConfig.git) {
+    // git初始化
+    await gitRepoInit(projectDir);
+  }
+
+  installDeps();
 }

@@ -2,9 +2,9 @@ const { spawn } = require("child_process");
 const npmLog = require("npmlog");
 
 function init(projectDir) {
-  npmLog.info("初始化eslint配置");
+  npmLog.info("初始化git仓库");
   return new Promise((resolve) => {
-    const eslintInit = spawn("npm", ["init", "@eslint/config@latest"], {
+    const eslintInit = spawn("git", ["init"], {
       cwd: projectDir,
       stdio: "inherit",
     });
@@ -13,7 +13,7 @@ function init(projectDir) {
       process.exit(1);
     });
     eslintInit.on("exit", (e) => {
-      npmLog.success("完成eslint配置!");
+      npmLog.success("完成git仓库初始化!");
       resolve(e);
     });
   });

@@ -69,7 +69,6 @@ async function init(userConfig) {
     fse.removeSync(templateInstallTargetDir);
     return {
       pkgFilePath,
-      createdPkg,
       projectDir,
     };
   } catch (err) {
