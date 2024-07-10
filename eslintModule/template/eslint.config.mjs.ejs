@@ -1,0 +1,36 @@
+import globals from "globals"; 
+import pluginJs from "@eslint/js";
+<% if (userConfig.eslintWithTypeScript) { %>
+import tseslint from 'typescript-eslint';
+<% } %>
+<% if (userConfig.prettier) { %>
+import prettier from 'eslint-plugin-prettier'; 
+<% } %>
+
+export default [ 
+  { 
+    languageOptions: { 
+      globals: {
+        <% if (userConfig.eslintEnv.includes("browser")) { %>
+        ...globals.browser, <% } %>
+        <% if (userConfig.eslintEnv.includes("node")) { %>
+        ...globals.node <% } %> 
+      } 
+    } 
+  }, 
+  pluginJs.configs.recommended,
+  <% if (userConfig.eslintWithTypeScript) { %>
+  ...tseslint.configs.recommended,
+  <% } %>
+  <% if (userConfig.prettier) { %>
+  {
+    plugins: {
+      prettier: prettier
+    },
+    rules: {
+      'prettier/prettier': 'error',
+      'no-case-declarations': 'error',
+    }
+  }
+  <% } %>
+];

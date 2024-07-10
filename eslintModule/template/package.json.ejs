@@ -1,0 +1,20 @@
+{ 
+  "scripts": {
+    "lint": "eslint --fix --quiet --no-error-on-unmatched-pattern src"
+  },
+  "devDependencies": { 
+    "@eslint/js": "^9.1.1",
+    "eslint": "^8.57.0",
+    "globals": "^15.0.0"
+    <% if (userConfig.eslintWithTypeScript) { %>
+    ,"typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.1",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0"
+    <% } %>
+    <% if (userConfig.prettier) { %>
+    ,"eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3"
+    <% } %>
+  } 
+}
