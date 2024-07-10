@@ -37,7 +37,7 @@ async function create() {
   // 获取用户配置
   userConfig = await runPrompts();
   const projectDir = await initTemplate.init(userConfig);
-  生成LICENSE文件;
+  // 生成LICENSE文件;
   const license = getLicense(userConfig.license, {
     author: userConfig.author,
     year: new Date().getFullYear().toString(),

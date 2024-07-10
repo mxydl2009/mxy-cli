@@ -4,7 +4,7 @@ const npmLog = require('npmlog');
 const npminstall = require('npminstall');
 
 // 初始化，检查用户配置信息与环境信息是否有冲突, 下载模板
-async function init(userConfig) {
+async function initTemplate(userConfig) {
   const cwdPath = process.cwd();
   const projectPath = path.resolve(cwdPath, userConfig.projectName);
 
@@ -77,7 +77,7 @@ function rewritePkg(userConfig, projectDir) {
   const createdPkg = require(path.resolve(projectDir, './package.json'));
   createdPkg.name = userConfig.packageName;
   createdPkg.version = '1.0.0';
-  description.description = userConfig.description;
+  createdPkg.description = userConfig.description;
   const pkgFilePath = path.resolve(projectDir, './package.json');
   // 删除npminstall安装package时在pkg.json中留下的标记字段
   Object.keys(createdPkg).forEach((key) => {
@@ -96,4 +96,4 @@ function rewritePkg(userConfig, projectDir) {
   );
 }
 
-exports.init = init;
+exports.init = initTemplate;
