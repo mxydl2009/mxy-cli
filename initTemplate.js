@@ -95,6 +95,7 @@ function rewritePkg(userConfig, projectDir) {
   createdPkg.name = userConfig.packageName;
   createdPkg.version = '1.0.0';
   createdPkg.description = userConfig.description;
+  createdPkg.repository && (createdPkg.repository = null);
   const pkgFilePath = path.resolve(projectDir, './package.json');
   // 删除npminstall安装package时在pkg.json中留下的标记字段
   Object.keys(createdPkg).forEach((key) => {
