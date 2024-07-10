@@ -56,13 +56,6 @@ async function runPrompts() {
       message: 'choose license:',
       choices: ['MIT', 'GPL-2.0+', 'LGPL-2.0+', 'BSD-2-Clause', 'Apache-2.0'],
     },
-    // 是否初始化git
-    {
-      type: 'confirm',
-      name: 'git',
-      message: 'init git?',
-      default: true,
-    },
     {
       type: 'input',
       name: 'author',

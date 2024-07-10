@@ -49,11 +49,8 @@ async function create() {
 
   const pkgObject = require(path.join(projectDir, './package.json'));
   const configPkg = [];
-
-  if (userConfig.git) {
-    // git初始化
-    await gitInit.init(projectDir);
-  }
+  // git初始化
+  await gitInit.init(projectDir);
 
   if (userConfig.prettier) {
     // prettier初始化
