@@ -96,4 +96,4 @@ function rewritePkg(userConfig, projectDir) {
   );
 }
 
-module.exports = init;
+exports.init = init;

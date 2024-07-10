@@ -6,7 +6,7 @@ const path = require('path');
 const { getLicense } = require('license');
 const runPrompts = require('../prompts');
 const checkBase = require('../checkBase');
-const init = require('../init');
+const initTemplate = require('../initTemplate');
 const eslintModule = require('../eslintModule/index');
 const prettierModule = require('../prettierModule/index');
 const commitLintModule = require('../commitLintModule/index');
@@ -36,7 +36,7 @@ async function create() {
   await checkBase();
   // 获取用户配置
   userConfig = await runPrompts();
-  const projectDir = await init(userConfig);
+  const projectDir = await initTemplate.init(userConfig);
   生成LICENSE文件;
   const license = getLicense(userConfig.license, {
     author: userConfig.author,
