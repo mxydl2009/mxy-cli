@@ -23,7 +23,6 @@ function commitLintInit(userConfig, projectDir) {
     userConfig,
   });
   const huskyPkgFragment = JSON.parse(pkgFragmentContent);
-  console.log(huskyPkgFragment);
   return huskyPkgFragment;
 }
 

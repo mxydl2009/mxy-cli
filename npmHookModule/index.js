@@ -4,11 +4,11 @@ const path = require('path');
 
 function npmHookInit(userConfig, projectDir) {
   // 将配置文件移动
-  const projectNpmHookFilePath = path.join(projectDir, './scripts');
-  fse.ensureFileSync(projectNpmHookFilePath);
+  const projectNpmHookDirPath = path.join(projectDir, './scripts');
+  fse.ensureDirSync(projectNpmHookDirPath);
   fse.copySync(
-    path.join(__dirname, './template/scrips'),
-    projectNpmHookFilePath,
+    path.join(__dirname, './template/scripts'),
+    projectNpmHookDirPath,
   );
 
   // 返回commitlint相关的package.json的片段，方便后续进行package.json的merge
