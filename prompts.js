@@ -67,7 +67,7 @@ async function runPrompts() {
       type: 'input',
       name: 'author',
       message: 'author email',
-      default: 'mxydl2009@163.com',
+      default: '',
       validate: (val) => {
         if (!isEmail(val)) {
           return 'Forbidden email address!';
