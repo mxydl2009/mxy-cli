@@ -1,6 +1,7 @@
 const npmLog = require('npmlog');
 const { spawn } = require('child_process');
 const fse = require('fs-extra');
+const path = require('path');
 
 function init(projectDir) {
   npmLog.info('初始化git仓库');
@@ -17,14 +18,13 @@ function init(projectDir) {
     gitInit.on('exit', (e) => {
       const gitIgnoreFilePath = path.join(projectDir, './.gitignore');
       fse.ensureFileSync(gitIgnoreFilePath);
-      const gitIgnoreContent = `
-      node_modules
-      dist
-      docs
-      .DS_Store
-      coverage
-      .nyc_output
-      `;
+      const gitIgnoreContent = `node_modules
+dist
+docs
+.DS_Store
+coverage
+.nyc_output
+`;
       fse.writeFileSync(gitIgnoreFilePath, gitIgnoreContent);
       npmLog.success('初始化git仓库完成!');
       resolve(e);
