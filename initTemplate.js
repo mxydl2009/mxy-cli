@@ -25,7 +25,12 @@ async function initTemplate(userConfig) {
     // 下载模板
     await installTemplate(templateName, templateInstallTargetDir);
     // 将模板内容移动到创建的目录里
-    copyTemplate(projectDir, templateInstallTargetDir, templateName);
+    copyTemplate(
+      projectDir,
+      templateInstallTargetDir,
+      templateName,
+      userConfig,
+    );
     // 修改模板的名称与版本号
     rewritePkg(userConfig, projectDir);
     // 删除下载的模板文件
@@ -50,7 +55,12 @@ async function installTemplate(pkgName, targetDir) {
   });
 }
 
-function copyTemplate(projectDir, templateInstallTargetDir, templateName) {
+function copyTemplate(
+  projectDir,
+  templateInstallTargetDir,
+  templateName,
+  userConfig,
+) {
   let templateDir = path.resolve(
     templateInstallTargetDir,
     'node_modules',
@@ -71,6 +81,13 @@ function copyTemplate(projectDir, templateInstallTargetDir, templateName) {
     );
   }
   fse.copySync(templateDir, projectDir);
+  // 修改REAMDE.md和CHANGELOG.md
+  const readmeFilePath = path.join(projectDir, './README.md');
+  const changelogFilePath = path.join(projectDir, './CHANGELOG.md');
+  fse.ensureFileSync(readmeFilePath);
+  fse.ensureFileSync(changelogFilePath);
+  fse.writeFileSync(readmeFilePath, `# ${userConfig.packageName}`);
+  fse.writeFileSync(changelogFilePath, '# 变更日志');
 }
 
 function rewritePkg(userConfig, projectDir) {
