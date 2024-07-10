@@ -77,7 +77,7 @@ async function create() {
       const huskyPkg = await huskyModule.init(userConfig, projectDir);
       configPkg.push(huskyPkg);
     } catch (e) {
-      console.log('husky error', e);
+      npmLog.error('husky', e);
       process.exit(1);
     }
   }

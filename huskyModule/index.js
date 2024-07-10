@@ -26,7 +26,6 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 function huskyInit(userConfig, projectDir) {
-  console.log('husky init');
   if (!userConfig.husky) return;
 
   return new Promise((resolve) => {
@@ -49,10 +48,24 @@ function huskyInit(userConfig, projectDir) {
       // 将配置脚本移动
       const projectHuskyScriptDir = path.join(projectDir, './.husky');
       fse.ensureDirSync(projectHuskyScriptDir);
-      fse.copySync(
-        path.join(__dirname, './template/.husky'),
-        projectHuskyScriptDir,
-      );
+      if (userConfig.eslint) {
+        fse.copyFileSync(
+          path.join(
+            __dirname,
+            './template/.husky/pre-commit',
+            path.join(projectHuskyScriptDir, './pre-commit'),
+          ),
+        );
+      }
+      if (userConfig.commitlint) {
+        fse.copyFileSync(
+          path.join(
+            __dirname,
+            './template/.husky/commit-msg',
+            path.join(projectHuskyScriptDir, './commit-msg'),
+          ),
+        );
+      }
 
       // 返回Husky相关的package.json的片段，方便后续进行package.json的merge
       const pkgFragmentTemplate = fse.readFileSync(
@@ -66,7 +79,6 @@ function huskyInit(userConfig, projectDir) {
       });
       const huskyPkgFragment = JSON.parse(pkgFragmentContent);
       resolve(huskyPkgFragment);
-      // resolve(e);
     });
   });
 }

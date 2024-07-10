@@ -1,12 +1,16 @@
 { 
   "devDependencies": { 
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2"
+    "husky": "^9.0.11"
+    <% if (userConfig.eslint) { %>
+    , "lint-staged": "^15.2.2"
+    <% } %>
   },
   "scripts": {
     "prepare": "husky"
-  },
-  "lint-staged": {
+  }
+  <% if (userConfig.eslint) { %>
+  ,"lint-staged": {
     "src/**/*.js": "eslint --config eslint.config.mjs"
   }
+  <% } %>
 }
