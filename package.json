@@ -5,7 +5,11 @@
   "bin": {
     "mxy": "./bin/cli.js"
   },
-  "scripts": {},
+  "scripts": {
+    "prepublishOnly": "node scripts/prepublish-check.js",
+    "preversion": "node scripts/prepublish-check.js",
+    "postversion": "git push --tags && npm publish"
+  },
   "keywords": [
     "command line tool",
     "javascript project",
@@ -19,6 +23,12 @@
   "files": [
     "bin"
   ],
+  "repository": {
+    "url": "https://github.com/mxydl2009/mxy-cli.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "axios": "^1.4.0",
     "colors": "^1.4.0",
