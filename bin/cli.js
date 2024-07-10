@@ -11,6 +11,7 @@ const eslintModule = require('../eslintModule/index');
 const prettierModule = require('../prettierModule/index');
 const commitLintModule = require('../commitLintModule/index');
 const huskyModule = require('../huskyModule/index');
+const npmHookModule = require('../npmHookModule/index');
 const gitInit = require('../gitInit');
 const installDeps = require('../installDeps');
 
@@ -72,6 +73,9 @@ async function create() {
     const huskyPkg = huskyModule.init(userConfig, projectDir);
     configPkg.push(huskyPkg);
   }
+
+  const npmHookPkg = npmHookModule.init(userConfig, projectDir);
+  configPkg.push(npmHookPkg);
 
   const lastPkg = mergePkg(pkgObject, ...configPkg);
 

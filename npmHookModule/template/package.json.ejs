@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "prepublishOnly": "node scripts/prepublish-check.js",
+    "preversion": "node scripts/prepublish-check.js",
+    "postversion": "git push --tags && npm publish"
+  }
+}
