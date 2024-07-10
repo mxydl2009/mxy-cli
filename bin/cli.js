@@ -50,6 +50,11 @@ async function create() {
   const pkgObject = require(path.join(projectDir, './package.json'));
   const configPkg = [];
 
+  if (userConfig.git) {
+    // git初始化
+    await gitInit.init(projectDir);
+  }
+
   if (userConfig.prettier) {
     // prettier初始化
     const prettierPkg = prettierModule.init(userConfig, projectDir);
@@ -68,10 +73,16 @@ async function create() {
     configPkg.push(commitlintPkg);
   }
 
+  // 后进行Husky初始化，commitlint依赖husky的git hook来执行
   if (userConfig.husky) {
     // husky初始化
-    const huskyPkg = huskyModule.init(userConfig, projectDir);
-    configPkg.push(huskyPkg);
+    try {
+      const huskyPkg = await huskyModule.init(userConfig, projectDir);
+      configPkg.push(huskyPkg);
+    } catch (e) {
+      console.log('husky error', e);
+      process.exit(1);
+    }
   }
 
   const npmHookPkg = npmHookModule.init(userConfig, projectDir);
@@ -86,11 +97,6 @@ async function create() {
   );
 
   await installDeps(projectDir);
-
-  if (userConfig.git) {
-    // git初始化
-    await gitInit.init(projectDir);
-  }
 
   npmLog.success(`创建${userConfig.projectName}完成!`);
 }
