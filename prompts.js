@@ -48,7 +48,7 @@ async function runPrompts() {
       type: 'list',
       name: 'template',
       message: 'choose template:',
-      choices: ['@mxydl2009/lib-template', 'none'],
+      choices: ['@mxydl2009/lib-template'],
     },
     {
       type: 'list',
