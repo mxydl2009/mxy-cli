@@ -102,14 +102,20 @@ async function runPrompts() {
     },
     {
       type: 'confirm',
-      name: 'commitlint',
-      message: 'use commitlint:',
+      name: 'husky',
+      message: 'use husky?',
       default: true,
     },
     {
       type: 'confirm',
-      name: 'husky',
-      message: 'use husky?',
+      name: 'commitizen',
+      message: 'use commitizen?',
+      default: false,
+    },
+    {
+      type: 'confirm',
+      name: 'commitlint',
+      message: 'use commitlint?',
       default: true,
     },
     // {
