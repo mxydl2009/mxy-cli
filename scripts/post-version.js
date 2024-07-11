@@ -9,7 +9,7 @@ const npmLog = require('npmlog');
 
 async function postVersion() {
   const status = await git.status();
-  if (status.modified.length <= 2) {
+  if (status.modified.length > 2) {
     npmLog.error(
       'modified files not only package.json and lock file!',
       status.modified,
