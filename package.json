@@ -39,7 +39,7 @@
     "cross-env": "^7.0.3",
     "fs-extra": "^11.2.0",
     "import-local": "^3.1.0",
-    "inquirer": "^8.0.0",
+    "inquirer": "^9.0.0",
     "npminstall": "^7.12.0",
     "npmlog": "^7.0.1",
     "root-check": "^1.0.0",
@@ -47,6 +47,9 @@
     "url-join": "^4.0.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/cz-commitlint": "^19.2.0",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "ejs": "^3.1.10",
@@ -56,13 +59,11 @@
     "merge-options": "^3.0.4",
     "prettier": "^3.3.2",
     "validate-npm-package-name": "^5.0.1",
-    "validator": "^13.12.0",
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2"
+    "validator": "^13.12.0"
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "@commitlint/cz-commitlint"
     }
   }
 }
