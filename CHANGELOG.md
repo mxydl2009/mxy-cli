@@ -10,3 +10,8 @@
 
 - 删除git init的提问，作为流程中必须有的，否则husky无法初始化;
 - husky初始化中，根据ESLint是否选择，更改对lint-stage的配置;
+
+## 1.2.0 / 2024.7.11
+
+- 添加commitizen选项的支持;
+- 添加post-version脚本，支持`npm version`后续操作自动执行;
