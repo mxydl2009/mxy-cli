@@ -7,6 +7,8 @@ const simpleGit = require('simple-git');
 const git = simpleGit();
 const npmLog = require('npmlog');
 
+npmLog.addLevel('success', 2000, { fg: 'green', bold: true }); // 添加自定义日志等级
+
 async function postVersion() {
   const status = await git.status();
   if (status.modified.length > 2) {
