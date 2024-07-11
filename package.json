@@ -1,6 +1,6 @@
 {
   "name": "@mxydl2009/mxy-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "a command line tool for create javascript project using specific template",
   "bin": {
     "mxy": "./bin/cli.js"
