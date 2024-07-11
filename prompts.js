@@ -109,7 +109,7 @@ async function runPrompts() {
     {
       type: 'confirm',
       name: 'commitizen',
-      message: 'use commitizen?',
+      message: 'use commitizen? Attention: conflict with commitlint!',
       default: false,
     },
     {
@@ -117,6 +117,7 @@ async function runPrompts() {
       name: 'commitlint',
       message: 'use commitlint?',
       default: true,
+      when: (answers) => answers.commitizen === false,
     },
     // {
     //   type: "list",
