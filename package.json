@@ -56,19 +56,19 @@
     "root-check": "^1.0.0",
     "semver": "^7.5.1",
     "url-join": "^4.0.1",
-    "ora": "^5.4.1",
     "validate-npm-package-name": "^5.0.1",
-    "validator": "^13.12.0"
+    "validator": "^13.12.0",
+    "ejs": "^3.1.10",
+    "license": "^1.0.3",
+    "merge-options": "^3.0.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "ejs": "^3.1.10",
     "husky": "^9.0.1",
-    "license": "^1.0.3",
     "lint-staged": "^15.2.7",
-    "merge-options": "^3.0.4",
     "prettier": "^3.3.2",
+    "ora": "^5.4.1",
     "simple-git": "^3.25.0"
   }
 }
