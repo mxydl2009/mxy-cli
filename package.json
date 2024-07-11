@@ -23,7 +23,19 @@
     "node": ">=14.x"
   },
   "files": [
-    "bin"
+    "bin",
+    "commitizenModule",
+    "commitLintModule",
+    "eslintModule",
+    "huskyModule",
+    "npmHookModule",
+    "prettierModule",
+    "prompts.js",
+    "checkBase.js",
+    "initTemplate.js",
+    "installDeps.js",
+    "mergePkg.js",
+    "gitInit.js"
   ],
   "repository": {
     "url": "https://github.com/mxydl2009/mxy-cli.git"
