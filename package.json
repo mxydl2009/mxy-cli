@@ -6,7 +6,6 @@
     "mxy": "./bin/cli.js"
   },
   "scripts": {
-    "prepublishOnly": "node scripts/prepublish-check.js",
     "preversion": "node scripts/prepublish-check.js",
     "postversion": "node scripts/post-version.js",
     "commit": "cz",
