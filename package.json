@@ -1,6 +1,6 @@
 {
   "name": "@mxydl2009/mxy-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "a command line tool for create javascript project using specific template",
   "bin": {
     "mxy": "./bin/cli.js"
@@ -8,7 +8,9 @@
   "scripts": {
     "prepublishOnly": "node scripts/prepublish-check.js",
     "preversion": "node scripts/prepublish-check.js",
-    "postversion": "git push --tags && npm publish"
+    "postversion": "git push --tags && npm publish",
+    "commit": "cz",
+    "prepare": "husky"
   },
   "keywords": [
     "command line tool",
@@ -45,11 +47,20 @@
     "url-join": "^4.0.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "ejs": "^3.1.10",
+    "husky": "^9.0.1",
     "license": "^1.0.3",
+    "lint-staged": "^15.2.7",
     "merge-options": "^3.0.4",
     "prettier": "^3.3.2",
     "validate-npm-package-name": "^5.0.1",
     "validator": "^13.12.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }

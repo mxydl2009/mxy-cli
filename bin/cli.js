@@ -9,6 +9,7 @@ const checkBase = require('../checkBase');
 const initTemplate = require('../initTemplate');
 const eslintModule = require('../eslintModule/index');
 const prettierModule = require('../prettierModule/index');
+const commitizenModule = require('../commitizenModule/index');
 const commitLintModule = require('../commitLintModule/index');
 const huskyModule = require('../huskyModule/index');
 const npmHookModule = require('../npmHookModule/index');
@@ -62,6 +63,12 @@ async function create() {
     // eslint初始化
     const eslintPkg = eslintModule.init(userConfig, projectDir);
     configPkg.push(eslintPkg);
+  }
+
+  if (userConfig.commitizen) {
+    // eslint初始化
+    const commitizenPkg = commitizenModule.init(userConfig);
+    configPkg.push(commitizenPkg);
   }
 
   if (userConfig.commitlint) {
