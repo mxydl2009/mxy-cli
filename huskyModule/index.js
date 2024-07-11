@@ -50,20 +50,14 @@ function huskyInit(userConfig, projectDir) {
       fse.ensureDirSync(projectHuskyScriptDir);
       if (userConfig.eslint) {
         fse.copyFileSync(
-          path.join(
-            __dirname,
-            './template/.husky/pre-commit',
-            path.join(projectHuskyScriptDir, './pre-commit'),
-          ),
+          path.join(__dirname, './template/.husky/pre-commit'),
+          path.join(projectHuskyScriptDir, './pre-commit'),
         );
       }
       if (userConfig.commitlint) {
         fse.copyFileSync(
-          path.join(
-            __dirname,
-            './template/.husky/commit-msg',
-            path.join(projectHuskyScriptDir, './commit-msg'),
-          ),
+          path.join(__dirname, './template/.husky/commit-msg'),
+          path.join(projectHuskyScriptDir, './commit-msg'),
         );
       }
 
